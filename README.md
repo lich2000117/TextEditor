@@ -6,3 +6,5 @@ Use PYINSTALLER to install
 
 pyinstaller -F -w -i icon.ico mycode.py    # (-w remove terminal window )
 pyinstaller -F mycode.py --noconsole 
+
+>pyinstaller -i icon.ico removeblank.py --onefile
