@@ -18,7 +18,7 @@ class MY_WINDOW():
     # Initialize windows
     def set_initial_window(self):
         #窗口
-        self.init_window_name.title("移除空格工具_v1.0")     
+        self.init_window_name.title("文本处理工具  -- by LCH")     
         #self.init_window_name.geometry('320x160+10+10')             #290 160为窗口大小，+10 +10 定义窗口弹出时的默认展示位置
         self.init_window_name.geometry('1068x681+10+10')
         #self.init_window_name.resizable(False, False)
@@ -37,11 +37,33 @@ class MY_WINDOW():
         self.log_data_Text = Text(self.init_window_name, width=65, height=9) # 日志框
         self.log_data_Text.grid(row=13, column=0, columnspan=10)
         #按钮
+        #标签
+        self.money_button_label = Label(self.init_window_name, text="去除空格功能:")
+        self.money_button_label.grid(row=7, column=11)
         self.remove_blank_button = Button(self.init_window_name, text="去除空格", bg="lightblue", width=10,command=self.removeblank) # 调用内部方法 加()为直接调用
-        self.remove_blank_button.grid(row=1, column=11)
+        self.remove_blank_button.grid(row=8, column=11)
         #按钮2
-        self.money_button = Button(self.init_window_name, text="金额转换", bg="red", width=10,command=self.numToBig) # 调用内部方法 加()为直接调用
-        self.money_button.grid(row=3, column=11)
+        #标签
+        self.money_button_label = Label(self.init_window_name, text="数字￥转大写:")
+        self.money_button_label.grid(row=10, column=11)
+        self.money_button = Button(self.init_window_name, text="格式转换", bg="lightblue", width=10,command=self.numToBig) # 调用内部方法 加()为直接调用
+        self.money_button.grid(row=11, column=11)
+        # # 替换文字部分 # #
+        #标签
+        self.replace_original_label = Label(self.init_window_name, text="查询现有字节:")
+        self.replace_original_label.grid(row=1, column=11)
+        #文本框
+        self.replace_original_text = Text(self.init_window_name, width=10, height=1) #需要被替换的字节
+        self.replace_original_text.grid(row=2, column=11)
+        #标签
+        self.replace_with_label = Label(self.init_window_name, text="替换为:")
+        self.replace_with_label.grid(row=3, column=11)
+        #文本框
+        self.replace_with_text = Text(self.init_window_name, width=10, height=1) #需要替换为的字节
+        self.replace_with_text.grid(row=4, column=11)
+        #按钮
+        self.replace_button = Button(self.init_window_name, text="替换", bg="lightblue", width=10,command=self.replaceText) # 调用内部方法 加()为直接调用
+        self.replace_button.grid(row=5, column=11)
 
     #insert output values to the window
     def insertOutput(self,output):
@@ -60,6 +82,18 @@ class MY_WINDOW():
         #Print value
         self.insertOutput(out_str)
         self.write_log_to_Text("INFO: 空格移除 success!")
+
+    ## replace input text functions
+    def replaceText(self):
+        input_str = self.getInput()
+        #get replace original input
+        replace_original = self.replace_original_text.get(1.0,END).strip()
+        replace_with = self.replace_with_text.get(1.0,END).strip()
+        out_str = input_str.replace(replace_original,replace_with)
+        #Print value
+        print(replace_original)
+        self.insertOutput(out_str)
+        self.write_log_to_Text("INFO: String替换 success!")
 
     #获取当前时间
     def get_current_time(self):
