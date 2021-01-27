@@ -37,16 +37,29 @@ class MY_WINDOW():
         self.log_data_Text = Text(self.init_window_name, width=65, height=9) # 日志框
         self.log_data_Text.grid(row=13, column=0, columnspan=10)
         #按钮
-        self.remove_blank_button = Button(self.init_window_name, text="转换", bg="lightblue", width=10,command=self.removeblank) # 调用内部方法 加()为直接调用
+        self.remove_blank_button = Button(self.init_window_name, text="去除空格", bg="lightblue", width=10,command=self.removeblank) # 调用内部方法 加()为直接调用
         self.remove_blank_button.grid(row=1, column=11)
+        #按钮2
+        self.money_button = Button(self.init_window_name, text="金额转换", bg="red", width=10,command=self.numToBig) # 调用内部方法 加()为直接调用
+        self.money_button.grid(row=3, column=11)
+
+    #insert output values to the window
+    def insertOutput(self,output):
+        self.result_data_Text.delete(1.0,END)
+        self.result_data_Text.insert(1.0,output)
+
+    def getInput(self):
+        return str(self.init_data_Text.get(1.0,END))
 
     #functional Function, Remove Blank
     def removeblank(self):
-        #根据输入Value
-        out_str = self.init_data_Text.get(1.0,END).strip().replace(" ","")
-        self.result_data_Text.delete(1.0,END)
-        self.result_data_Text.insert(1.0,out_str)
-        self.write_log_to_Text("INFO:Operation success")
+        #input
+        input_str = self.getInput()
+        #去除空格
+        out_str = input_str.strip().replace(" ","")
+        #Print value
+        self.insertOutput(out_str)
+        self.write_log_to_Text("INFO: 空格移除 success!")
 
     #获取当前时间
     def get_current_time(self):
@@ -65,6 +78,71 @@ class MY_WINDOW():
         else:
             self.log_data_Text.delete(1.0,2.0)
             self.log_data_Text.insert(END, logmsg_in)
+
+    
+    #author：FarryNiu
+    #https://blog.csdn.net/qq_43474959/article/details/107852510
+    #Implemented by Chenghao Li on 27/01/2021
+    def numToBig(self):
+        dict1 = {1:'壹',2:'贰',3:'叁',4:'肆',5:'伍',6:'陆',7:'柒',8:'捌',9:'玖',0:'零'}
+        dict2 = {2:'拾',3:'佰',4:'仟',5:'万',6:'拾',7:'佰',8:'仟',1:'元',11:'整'}
+        money = '' #最终大写数字
+        flag = False #去掉多余的十百千
+        flag2 = False #增加零
+        ifint = False #整
+        count = 0
+        count2 = 8
+        num = self.getInput()
+        ## Error Security Check
+        try:
+            strnum = str(int(num))
+            if int(strnum) > 99999999:   # MAX 为一亿
+                self.insertOutput("请检查金额格式，最大金额小于1亿元")
+                self.write_log_to_Text("INFO: 金额转换 failed!")
+                return
+        except:
+            self.insertOutput("请检查金额格式，仅支持整数")
+            self.write_log_to_Text("INFO: 金额转换 failed!")
+            return
+        #splitting the number
+        aa = strnum.split('.')   #split money into int and decimal part
+        bb = list(str(aa[:1])[2:-2])  # int part
+        cc = list(str(aa[1:])[2:-2])   # decimal part
+        print(bb)
+        #此处控制：无小数时输出xxx元整
+        #若要求一位小数也带整，即xxx元整并且xxx元xx角整，则修改下方0为1
+        if len(cc) <= 0:
+            ifint = True
+        else:
+            ifint = False
+        #整数部分
+        for i in reversed(bb):
+            count = count + 1
+            if(int(i) == 0):
+                if(flag == True):
+                    if(count != 5):
+                        continue
+                    else:
+                        money = dict2[count] + money 
+                else:
+                    if(flag2 == False):
+                        money = dict2[count] + money 
+                    else:
+                        if(count != 5):
+                            money = '零' + money
+                        else:
+                            money = dict2[count] + '零' +money 
+                flag = True
+            else:
+                flag = False
+                flag2 = True
+                money = dict1[int(i)]+dict2[count]+money
+        if(ifint == True):
+            money = money + '整'
+        #Print value
+        self.insertOutput(money)
+        self.write_log_to_Text("INFO: ￥" + str(int(num)) + " 金额转换 success!")
+
 
 
 
