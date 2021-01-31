@@ -1,5 +1,9 @@
-## A program to remove blank spaces, 
+## A program as a text Editor, 
 ## written by Chenghao Li, 27/01/2000
+## Functions:
+##      1. Remove Blank Spaces
+##      2. Replace Text
+##      3. Currency Convert
 
 
 from tkinter import *  # GUI module
@@ -141,7 +145,6 @@ class MY_WINDOW():
         aa = strnum.split('.')   #split money into int and decimal part
         bb = list(str(aa[:1])[2:-2])  # int part
         cc = list(str(aa[1:])[2:-2])   # decimal part
-        print(bb)
         #此处控制：无小数时输出xxx元整
         #若要求一位小数也带整，即xxx元整并且xxx元xx角整，则修改下方0为1
         if len(cc) <= 0:
