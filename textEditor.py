@@ -83,6 +83,7 @@ class MY_WINDOW():
         input_str = self.getInput()
         #去除空格
         out_str = input_str.strip().replace(" ","")
+        out_str = out_str.strip().replace("\t","")
         #Print value
         self.insertOutput(out_str)
         self.write_log_to_Text("INFO: 空格移除 success!")
