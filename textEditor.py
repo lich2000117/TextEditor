@@ -129,7 +129,6 @@ class MY_WINDOW():
         flag2 = False #增加零
         ifint = False #整
         count = 0
-        count2 = 8
         num = self.getInput()
         ## Error Security Check
         try:
