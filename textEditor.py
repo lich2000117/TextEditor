@@ -21,52 +21,52 @@ class MY_WINDOW():
 
     # Initialize windows
     def set_initial_window(self):
-        #窗口
-        self.init_window_name.title("文本处理工具  -- by LCH")     
-        #self.init_window_name.geometry('320x160+10+10')             #290 160为窗口大小，+10 +10 定义窗口弹出时的默认展示位置
+        #window
+        self.init_window_name.title("Text Process Tool  -- by Chenghao Li")     
+        #self.init_window_name.geometry('320x160+10+10')             #290 160 is the window size ;  +10 +10 define window appear location
         self.init_window_name.geometry('1068x681+10+10')
         #self.init_window_name.resizable(False, False)
-        #标签
-        self.init_data_label = Label(self.init_window_name, text="待处理数据")
+        #label
+        self.init_data_label = Label(self.init_window_name, text="Input")
         self.init_data_label.grid(row=0, column=0)
-        self.result_data_label = Label(self.init_window_name, text="输出结果")
+        self.result_data_label = Label(self.init_window_name, text="Output")
         self.result_data_label.grid(row=0, column=12)
-        self.log_label = Label(self.init_window_name, text="日志")
+        self.log_label = Label(self.init_window_name, text="Log")
         self.log_label.grid(row=12, column=0)
-        #文本框
-        self.init_data_Text = Text(self.init_window_name, width=65, height=35) #原始数据录入框
+        #text
+        self.init_data_Text = Text(self.init_window_name, width=65, height=35) # Original input box
         self.init_data_Text.grid(row=1, column=0, rowspan=10, columnspan=10)
-        self.result_data_Text = Text(self.init_window_name, width=65, height=49) #处理结果展示
+        self.result_data_Text = Text(self.init_window_name, width=65, height=49) # output
         self.result_data_Text.grid(row=1, column=12, rowspan=15, columnspan=10)
-        self.log_data_Text = Text(self.init_window_name, width=65, height=9) # 日志框
+        self.log_data_Text = Text(self.init_window_name, width=65, height=9) # log
         self.log_data_Text.grid(row=13, column=0, columnspan=10)
-        #按钮
-        #标签
-        self.money_button_label = Label(self.init_window_name, text="去除空格功能:")
+        #button
+        #label
+        self.money_button_label = Label(self.init_window_name, text="Remove Space Function:")
         self.money_button_label.grid(row=7, column=11)
-        self.remove_blank_button = Button(self.init_window_name, text="去除空格", bg="lightblue", width=10,command=self.removeblank) # 调用内部方法 加()为直接调用
+        self.remove_blank_button = Button(self.init_window_name, text="Remove Space", bg="lightblue", width=10,command=self.removeblank) # use  method
         self.remove_blank_button.grid(row=8, column=11)
-        #按钮2
-        #标签
-        self.money_button_label = Label(self.init_window_name, text="数字￥转大写:")
+        #Button2
+        #Label
+        self.money_button_label = Label(self.init_window_name, text="Digital ￥ TO Character ￥:")
         self.money_button_label.grid(row=10, column=11)
-        self.money_button = Button(self.init_window_name, text="格式转换", bg="lightblue", width=10,command=self.numToBig) # 调用内部方法 加()为直接调用
+        self.money_button = Button(self.init_window_name, text="Format Convert", bg="lightblue", width=10,command=self.numToBig)
         self.money_button.grid(row=11, column=11)
-        # # 替换文字部分 # #
-        #标签
-        self.replace_original_label = Label(self.init_window_name, text="查询现有字节:")
+        # # Text Replacement # #
+        #Label
+        self.replace_original_label = Label(self.init_window_name, text="Target Character:")
         self.replace_original_label.grid(row=1, column=11)
-        #文本框
-        self.replace_original_text = Text(self.init_window_name, width=10, height=1) #需要被替换的字节
+        # text box
+        self.replace_original_text = Text(self.init_window_name, width=10, height=1) # to be replaced
         self.replace_original_text.grid(row=2, column=11)
-        #标签
-        self.replace_with_label = Label(self.init_window_name, text="替换为:")
+        # label
+        self.replace_with_label = Label(self.init_window_name, text="Replaced Character")
         self.replace_with_label.grid(row=3, column=11)
-        #文本框
-        self.replace_with_text = Text(self.init_window_name, width=10, height=1) #需要替换为的字节
+        # label
+        self.replace_with_text = Text(self.init_window_name, width=10, height=1) # to be replaced
         self.replace_with_text.grid(row=4, column=11)
-        #按钮
-        self.replace_button = Button(self.init_window_name, text="替换", bg="lightblue", width=10,command=self.replaceText) # 调用内部方法 加()为直接调用
+        # button
+        self.replace_button = Button(self.init_window_name, text="Replace", bg="lightblue", width=10,command=self.replaceText)
         self.replace_button.grid(row=5, column=11)
 
     #insert output values to the window
@@ -86,7 +86,7 @@ class MY_WINDOW():
         out_str = out_str.strip().replace("\t","")
         #Print value
         self.insertOutput(out_str)
-        self.write_log_to_Text("INFO: 空格移除 success!")
+        self.write_log_to_Text("INFO: Space Removal SUCCESS!")
 
     ## replace input text functions
     def replaceText(self):
@@ -97,19 +97,19 @@ class MY_WINDOW():
         out_str = input_str.replace(replace_original,replace_with)
         #Print value
         self.insertOutput(out_str)
-        self.write_log_to_Text("INFO: String替换 success!")
+        self.write_log_to_Text("INFO: Character Replacement SUCCESS!")
 
-    #获取当前时间
+    # Get current Time
     def get_current_time(self):
         current_time = time.strftime('%Y-%m-%d %H:%M:%S',time.localtime(time.time()))
         return current_time
 
-    #日志动态打印
+    # Print log
     def write_log_to_Text(self,logmsg):
         global LOG_LINE_NUM
         current_time = self.get_current_time()
-        logmsg_in = str(current_time) +" " + str(logmsg) + "\n"   #换行
-        # 删除之前的记录
+        logmsg_in = str(current_time) +" " + str(logmsg) + "\n"   #next line
+        # Delete old log
         if LOG_LINE_NUM <= 7:
             self.log_data_Text.insert(END, logmsg_in)
             LOG_LINE_NUM = LOG_LINE_NUM + 1
@@ -184,12 +184,12 @@ class MY_WINDOW():
 
 #Start APP
 def start_my_app():
-    #初始化Tk()
+    # Initialise TK ()
     myWindow = Tk()
     MYApp = MY_WINDOW(myWindow)
-    # 设置根窗口默认属性
+    # Set window properties
     MYApp.set_initial_window()
-    #进入消息循环
+    # Go into Loop
     myWindow.mainloop()
 
 start_my_app()
