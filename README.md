@@ -2,6 +2,12 @@
 
 Small applications for implementing python GUI with tkinter,
 
+![Text Editor](pics/1.png)
+
+![Text Editor](pics/2.png)
+
+
+
 
 #### To compile for different distro (MacOS, Windows etc)
 
