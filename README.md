@@ -20,6 +20,3 @@ echo the bat's path :
 
 %~dp0
 pyinstaller -F -w -i icon.ico texteditor.py --clean --workpath ./pybuilds/builds --distpath ./pybuilds/dists -n myApp
-
-
-##

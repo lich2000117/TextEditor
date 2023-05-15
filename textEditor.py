@@ -16,6 +16,7 @@ LOG_LINE_NUM = 0
 ## A class for application windows
 class MY_WINDOW():
     def __init__(self,init_window_name):
+        self.flag = 0  # flag to check if a button has been pressed several times.
         self.init_window_name = init_window_name
 
 
@@ -42,16 +43,19 @@ class MY_WINDOW():
         self.log_data_Text.grid(row=13, column=0, columnspan=10)
         #button
         #label
-        self.money_button_label = Label(self.init_window_name, text="Remove Space Function:")
-        self.money_button_label.grid(row=7, column=11)
+        self.removespace_button_label = Label(self.init_window_name, text="--Other Functions--")
+        self.removespace_button_label.grid(row=7, column=11)
         self.remove_blank_button = Button(self.init_window_name, text="Remove Space", bg="lightblue", width=10,command=self.removeblank) # use  method
         self.remove_blank_button.grid(row=8, column=11)
-        #Button2
+        #button2
+        self.change_case_button = Button(self.init_window_name, text="To Lower Case", bg="lightblue", width=10,command=self.caseConverter)
+        self.change_case_button.grid(row=9, column=11)
+        #Button3
         #Label
         self.money_button_label = Label(self.init_window_name, text="Digital ￥ TO Character ￥:")
-        self.money_button_label.grid(row=10, column=11)
-        self.money_button = Button(self.init_window_name, text="Format Convert", bg="lightblue", width=10,command=self.numToBig)
-        self.money_button.grid(row=11, column=11)
+        self.money_button_label.grid(row=11, column=11)
+        self.money_button = Button(self.init_window_name, text="Convert Now", bg="lightblue", width=10,command=self.numToBig)
+        self.money_button.grid(row=12, column=11)
         # # Text Replacement # #
         #Label
         self.replace_original_label = Label(self.init_window_name, text="Target Character:")
@@ -98,6 +102,23 @@ class MY_WINDOW():
         #Print value
         self.insertOutput(out_str)
         self.write_log_to_Text("INFO: Character Replacement SUCCESS!")
+
+    ## To lower or upper case characters depends on how many times this button been clicked
+    def caseConverter(self):
+        input_str = self.getInput()
+        #get replace original input
+        if self.flag == 0:
+            out_str = input_str.lower()
+            self.write_log_to_Text("INFO: To Lower Case SUCCESS!")
+            self.change_case_button.config(text="To Upper Case")
+            self.flag = 1
+        else:
+            out_str = input_str.upper()
+            self.write_log_to_Text("INFO: To Upper Case SUCCESS!")
+            self.change_case_button.config(text="To Lower Case")
+            self.flag = 0
+        # Print value
+        self.insertOutput(out_str)
 
     # Get current Time
     def get_current_time(self):
